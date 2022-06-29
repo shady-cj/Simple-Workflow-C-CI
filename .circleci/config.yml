@@ -35,13 +35,11 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: mkdir -p /tmp/outputs
-      - run: cd /tmp/outputs
       - run: 
           name: "Save hello world into output.txt"
           command: echo "Hello world" > output.txt
       - persist_to_workspace:
-          root: /tmp/outputs
+          root: ~/
           paths:
             - output.txt
   print_output_file:
@@ -49,10 +47,10 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - attach_workspace:
-          at: /tmp/outputs
+          at: ~/
       - run:
           name: "read outputs.txt"
-          command: cat /tmp/outputs/output.txt
+          command: cat ~/output.txt
   print_name:
     docker:
       - image: circleci/node:13.8.0
