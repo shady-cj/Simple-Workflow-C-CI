@@ -39,18 +39,18 @@ jobs:
           name: "Save hello world into output.txt"
           command: echo "Hello world" > output.txt
       - persist_to_workspace:
-          root: ./
+          root: /tmp/outputs
           paths:
-            - outputs/
+            - output.txt
   print_output_file:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - attach_workspace:
-          at: ./outputs
+          at: /tmp/outputs
       - run:
           name: "read outputs.txt"
-          command: cat ./outputs/output.txt
+          command: cat /tmp/outputs/output.txt
   print_name:
     docker:
       - image: circleci/node:13.8.0
