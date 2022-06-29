@@ -31,6 +31,13 @@ jobs:
       - run:
           name: "Print world"
           command: "echo world"
+  print_name:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run:
+          name: "Echo my name using environment variable"
+          command: echo $MY_F_NAME
          
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
