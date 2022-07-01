@@ -35,6 +35,19 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
+  Failure:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run:
+          shell: /bin/bash
+          command: return 1
+
+      - run:
+          name: "On failure"
+          command: echo "Hello Error"
+          when: on_fail
+      
   print_hello:
     docker:
       - image: circleci/node:13.8.0
@@ -85,6 +98,7 @@ workflows:
     jobs:
       - print_pipeline
       - say-hello
+      - Failure
       - print_hello
       - print_world:
           requires: [print_hello]
